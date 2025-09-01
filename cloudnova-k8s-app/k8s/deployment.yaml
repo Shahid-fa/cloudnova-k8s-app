@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudnova
+  namespace: cloudnova
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cloudnova
+  template:
+    metadata:
+      labels:
+        app: cloudnova
+    spec:
+      containers:
+      - name: cloudnova
+        image: your-dockerhub-username/cloudnova:latest
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: cloudnova-config
+        - secretRef:
+            name: cloudnova-secret

@@ -1,0 +1,19 @@
+replicaCount: 3
+
+image:
+  repository: your-dockerhub-username/cloudnova
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
+
+ingress:
+  enabled: true
+  hosts:
+    - host: cloudnova.local
+      paths:
+        - path: /
+          pathType: Prefix

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cloudnova.fullname" . }}
+  labels:
+    app: {{ include "cloudnova.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "cloudnova.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "cloudnova.name" . }}
+    spec:
+      containers:
+      - name: cloudnova
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3000
